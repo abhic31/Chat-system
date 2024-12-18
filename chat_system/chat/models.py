@@ -11,10 +11,10 @@ ENTITY_TYPES = [
 ]
 class Thread(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    entity_type = models.CharField(max_length=50, choices=ENTITY_TYPES)  # Restricts to valid entity types
-    entity_id = models.UUIDField(default=uuid.uuid4)  # UUID of the related entity
+    entity_type = models.CharField(max_length=50, choices=ENTITY_TYPES) 
+    entity_id = models.UUIDField(default=uuid.uuid4)  
     title = models.TextField()  # Thread title
-    created_at = models.DateTimeField(auto_now_add=True)  # Automatically adds the creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  
 
     class Meta:
         indexes = [
@@ -31,6 +31,16 @@ class Message(models.Model):
     user_name = models.TextField()
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user_id', 'user_name'], name='unique_user_id_user_name')
+        ]
+
+    def __str__(self):
+        return f"{self.user_name} - {self.content[:20]}"
+
+
 
 class ThreadParticipant(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

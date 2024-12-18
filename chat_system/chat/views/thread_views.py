@@ -10,11 +10,10 @@ class ThreadViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
 
-        queryset = super().get_queryset()
+        queryset    = super().get_queryset()
         entity_type = self.request.query_params.get('entity_type')
-        entity_id = self.request.query_params.get('entity_id')
-
-        thread_id = self.kwargs.get('thread_id')
+        entity_id   = self.request.query_params.get('entity_id')
+        thread_id   = self.kwargs.get('thread_id')
 
         # Build the filter dynamically using Q
         query_filter = Q()
