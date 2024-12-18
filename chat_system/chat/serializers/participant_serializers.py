@@ -7,17 +7,14 @@ class ThreadParticipantSerializer(serializers.ModelSerializer):
         model = ThreadParticipant
         fields = '__all__'
 
-class ThreadGetParticipantSerializer(serializers.ModelSerializer):
-    user_name = serializers.SerializerMethodField()
+    def validate(self, attrs):
+        user_name = attrs.get('user_name')
+        user_id = attrs.get('user_id')
+        thread = attrs.get('thread')
 
-    class Meta:
-        model = ThreadParticipant
-        fields = ['user_id', 'user_name']
+        # Validate unique user_name and user_id combination
+        if ThreadParticipant.objects.filter(user_name=user_name, user_id=user_id).exists():
+            raise ValidationError(f"A participant with user_name '{user_name}' and user_id '{user_id}' already exists.")
+        
+        return attrs
 
-    def get_user_name(self, obj):
-        latest_message = Message.objects.filter(
-            thread=obj.thread, user_id=obj.user_id
-        ).order_by('-created_at').first()
-
-        # Return the user_name from the latest message, or None if no messages exist
-        return latest_message.user_name if latest_message else None
