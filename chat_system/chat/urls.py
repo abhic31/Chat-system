@@ -6,9 +6,11 @@ from chat.views.participant_views import ThreadParticipantViewSet
 
 router = DefaultRouter()
 router.register(r'threads', ThreadViewSet, basename='thread')
-router.register(r'messages', MessageViewSet, basename='message')
-router.register(r'participants', ThreadParticipantViewSet, basename='participant')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('threads/<int:thread_id>/', ThreadViewSet.as_view({'get': 'retrieve'}), name='thread-detail'),
+    path('threads/<uuid:thread_id>/messages/', MessageViewSet.as_view({'get': 'list', 'post': 'create'}), name='message-list-create'),
+    path('threads/<uuid:thread_id>/participants/', ThreadParticipantViewSet.as_view({'get': 'list', 'post': 'create'}), name='participants-list-create')
+    
 ]

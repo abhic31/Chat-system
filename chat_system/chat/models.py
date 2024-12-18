@@ -12,7 +12,7 @@ ENTITY_TYPES = [
 class Thread(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     entity_type = models.CharField(max_length=50, choices=ENTITY_TYPES)  # Restricts to valid entity types
-    entity_id = models.UUIDField()  # UUID of the related entity
+    entity_id = models.UUIDField(default=uuid.uuid4)  # UUID of the related entity
     title = models.TextField()  # Thread title
     created_at = models.DateTimeField(auto_now_add=True)  # Automatically adds the creation timestamp
 
@@ -27,7 +27,7 @@ class Thread(models.Model):
 class Message(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     thread = models.ForeignKey(Thread, related_name="messages", on_delete=models.CASCADE)
-    user_id = models.UUIDField()
+    user_id = models.UUIDField(default=uuid.uuid4)
     user_name = models.TextField()
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
