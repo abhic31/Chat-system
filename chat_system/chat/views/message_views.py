@@ -3,7 +3,7 @@ from chat.models import Message, Thread
 from chat.serializers.message_serializers import MessageSerializer
 
 class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Message.objects.all()
+    queryset         = Message.objects.all()
     serializer_class = MessageSerializer
 
     def get_queryset(self):
@@ -16,5 +16,4 @@ class MessageViewSet(viewsets.ModelViewSet):
         thread_id = self.kwargs.get("thread_id")
         if thread_id:
             thread = Thread.objects.get(id=thread_id)  
-            # Save the message associated with the found thread
             serializer.save(thread=thread)

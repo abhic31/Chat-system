@@ -4,10 +4,8 @@ from chat.serializers.thread_serializers import ThreadSerializer
 from django.db.models import Q
 from django.http import Http404
 
-
-
 class ThreadViewSet(viewsets.ModelViewSet):
-    queryset = Thread.objects.all()
+    queryset         = Thread.objects.all()
     serializer_class = ThreadSerializer
 
     def get_queryset(self):
@@ -27,7 +25,7 @@ class ThreadViewSet(viewsets.ModelViewSet):
             if not Thread.objects.filter(entity_id=entity_id).exists():
                 raise Http404(f"Entity with ID '{entity_id}' does not exist.")
             query_filter &= Q(entity_id=entity_id)
-        # Apply the filter if any condition exists
+
         if query_filter:
             queryset = queryset.filter(query_filter)
         return queryset
