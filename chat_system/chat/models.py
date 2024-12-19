@@ -40,10 +40,6 @@ class Message(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['participant'], name='unique_participant_message')
-        ]
 
     def __str__(self):
         return f"{self.participant.user_name} - {self.content[:20]}"

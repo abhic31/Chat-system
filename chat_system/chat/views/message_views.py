@@ -15,10 +15,6 @@ class MessageViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         thread_id = self.kwargs.get("thread_id")
         if thread_id:
-            try:
-                thread = Thread.objects.get(id=thread_id)  # Ensure the thread exists
-            except Thread.DoesNotExist:
-                raise NotFound(detail="Thread not found")  # Raise a 404 if thread does not exist
-            
+            thread = Thread.objects.get(id=thread_id)  
             # Save the message associated with the found thread
             serializer.save(thread=thread)
