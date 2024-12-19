@@ -16,3 +16,8 @@ class ThreadParticipantSerializer(serializers.ModelSerializer):
         if ThreadParticipant.objects.filter(user_name=user_name, user_id=user_id).exists():
             raise ValidationError(f"A participant with user_name '{user_name}' and user_id '{user_id}' already exists.")
         return attrs
+
+class ThreadParticipantBasicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ThreadParticipant
+        fields = ['id','user_id', 'user_name']
