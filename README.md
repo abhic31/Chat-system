@@ -13,3 +13,5 @@ An application for managing messages within threads. Users can create threads, s
 5. Apply migration
 6. run development server
 
+![messages_and_participants](https://github.com/user-attachments/assets/b629715c-d4f2-4433-b017-8d89d7076fb4)
+![Threads_gif](https://github.com/user-attachments/assets/c900254c-b25f-4a05-bb00-8efd4a0c5b8c)
