@@ -4,6 +4,8 @@ from chat.serializers.thread_serializers import ThreadSerializer
 from django.db.models import Q
 from django.http import Http404
 
+ENTITY_TYPES_VALIDATION = ["ORDER", "ORDERLINE", "SUPPLIER", "PAYMENT", "STOCK"]
+
 class ThreadViewSet(viewsets.ModelViewSet):
     queryset         = Thread.objects.all()
     serializer_class = ThreadSerializer
@@ -18,6 +20,8 @@ class ThreadViewSet(viewsets.ModelViewSet):
         # Build the filter dynamically using Q
         query_filter = Q()
         if entity_type:
+            if entity_type not in ENTITY_TYPES_VALIDATION:
+                raise Http404(f"Invalid entity_type '{entity_type}', it must be one of {ENTITY_TYPES_VALIDATION}.")
             query_filter &= Q(entity_type=entity_type)
         if thread_id:
             query_filter &= Q(id=thread_id)

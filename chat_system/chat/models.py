@@ -13,7 +13,7 @@ class Thread(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     entity_type = models.CharField(max_length=50, choices=ENTITY_TYPES) 
     entity_id = models.UUIDField(default=uuid.uuid4)  
-    title = models.TextField()  # Thread title
+    title = models.TextField()  
     created_at = models.DateTimeField(auto_now_add=True)  
 
     class Meta:
