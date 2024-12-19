@@ -14,8 +14,10 @@ An application for managing messages within threads. Users can create threads, s
 6. run development server
 
 
-#DEMO 
-##Threads api 
+# DEMO
+
+
+## Threads api 
 ![messages_and_participants](https://github.com/user-attachments/assets/b629715c-d4f2-4433-b017-8d89d7076fb4)
-##messages and participants api
+## messages and participants api
 ![Threads_gif](https://github.com/user-attachments/assets/c900254c-b25f-4a05-bb00-8efd4a0c5b8c)
